@@ -3,8 +3,8 @@ import supabase from "./config.js";
 let registerForm =document.getElementById('registerForm');
 
 
-let semail =document.getElementById('exampleInputEmail1');
-let spassword =document.getElementById('exampleInputPassword1');
+let semail =document.getElementById('signupEmail');
+let spassword =document.getElementById('signupPassword');
 
 async function signup(e){
     e.preventDefault();
@@ -20,7 +20,7 @@ try{
  const { data, error } = await supabase.auth.signUp({
   email: semail.value,
   password: spassword.value,
-  option:{
+  options:{
     data:{
         first_name:'Hira',
         last_name:'Israr'
@@ -59,11 +59,11 @@ registerForm && registerForm.addEventListener('submit',signup);
 // __________________________________login
 
 
-let loginForm =document.getElementById('registerForm');
+let loginForm =document.getElementById('loginForm');
 
 
-let lemail =document.getElementById('exampleInputEmail1');
-let lpassword =document.getElementById('exampleInputPassword1');
+let lemail =document.getElementById('loginEmail');
+let lpassword =document.getElementById('loginPassword');
 
 async function login (e){
     e.preventDefault();
@@ -77,9 +77,9 @@ try{
         return
     }
  const { data, error } = await supabase.auth.signInWithPassword({
-  email: lemail.value,
-  password: lpassword.value,
-});
+  lemail: 'loginEmail',
+  lpassword: 'loginPassword',
+})
 
 if (error) {
   console.log("Signup Error:", error);
@@ -98,3 +98,5 @@ if(data){
 }
 
 loginForm && loginForm.addEventListener('submit',login)
+console.log("Email:", lemail.value);
+console.log("Password:", lpassword.value);
