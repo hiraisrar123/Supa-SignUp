@@ -14,7 +14,7 @@ try{
         return
     }
     if(!spassword.value){
-        alert('Please enter ppassword');
+        alert('Please enter password');
         return
     }
  const { data, error } = await supabase.auth.signUp({
@@ -77,8 +77,8 @@ try{
         return
     }
  const { data, error } = await supabase.auth.signInWithPassword({
-  lemail: 'loginEmail',
-  lpassword: 'loginPassword',
+  lemail: lemail.value,
+  lpassword: lpassword.value,
 })
 
 if (error) {
@@ -100,3 +100,4 @@ if(data){
 loginForm && loginForm.addEventListener('submit',login)
 console.log("Email:", lemail.value);
 console.log("Password:", lpassword.value);
+
