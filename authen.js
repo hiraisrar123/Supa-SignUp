@@ -43,7 +43,7 @@ if(data){
 }
 
 }
-registerForm.addEventListener('submit',signup);
+registerForm && registerForm.addEventListener('submit',signup);
 
 
 
@@ -76,7 +76,7 @@ try{
         alert('Please enter ppassword');
         return
     }
- const { data, error } = await supabase.auth.signUp({
+ const { data, error } = await supabase.auth.signInWithPassword({
   email: lemail.value,
   password: lpassword.value,
 });
@@ -96,4 +96,5 @@ if(data){
 }
 
 }
-loginForm.addEventListener('submit',login)
+
+loginForm && loginForm.addEventListener('submit',login)
