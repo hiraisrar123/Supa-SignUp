@@ -1,103 +1,33 @@
-import supabase from "./config.js";
+import { supabase } from "./config.js";
 
-let registerForm =document.getElementById('registerForm');
+const registerForm = document.getElementById('registerForm');
+const semail = document.getElementById('signupEmail');
+const spassword = document.getElementById('signupPassword');
 
+async function signup(e) {
+  e.preventDefault();
 
-let semail =document.getElementById('signupEmail');
-let spassword =document.getElementById('signupPassword');
-
-async function signup(e){
-    e.preventDefault();
-try{
-    if(!semail.value){
-        alert('Please enter email');
-        return
-    }
-    if(!spassword.value){
-        alert('Please enter password');
-        return
-    }
- const { data, error } = await supabase.auth.signUp({
-  email: semail.value,
-  password: spassword.value,
-  options:{
-    data:{
-        first_name:'Hira',
-        last_name:'Israr'
-    }
+  if (!semail.value || !spassword.value) {
+    alert('Please fill all fields');
+    return;
   }
-});
 
-if (error) {
-  console.log("Signup Error:", error);
-  alert(error.message);
-  return;
-} // addition
-
-if(data){
-    console.log(data);
-    location.href='home.html';
-}
-} catch(err){
-
-}
-
-}
-registerForm && registerForm.addEventListener('submit',signup);
-
-
-
-
-
-
-
-
-
-
-
-
-// __________________________________login
-
-
-let loginForm =document.getElementById('loginForm');
-
-
-let lemail =document.getElementById('loginEmail');
-let lpassword =document.getElementById('loginPassword');
-
-async function login (e){
-    e.preventDefault();
-try{
-    if(!lemail.value){
-        alert('Please enter email');
-        return
+  const { data, error } = await supabase.auth.signUp({
+    email: semail.value,
+    password: spassword.value,
+    options: {
+      data: { name: document.getElementById('username').value }
     }
-    if(!lpassword.value){
-        alert('Please enter ppassword');
-        return
-    }
- const { data, error } = await supabase.auth.signInWithPassword({
-  lemail: lemail.value,
-  lpassword: lpassword.value,
-})
+  });
 
-if (error) {
-  console.log("Signup Error:", error);
-  alert(error.message);
-  return;
-} // addition
+  if (error) {
+    console.log('Signup Error:', error);
+    alert(error.message);
+    return;
+  }
 
-if(data){
-    console.log(data);
-    location.href='home.html';
-}
-} catch(err){
-
+  alert('Signup successful! Check your email to confirm.');
+  window.location.href = 'login.html';
 }
 
-}
-
-loginForm && loginForm.addEventListener('submit',login)
-console.log("Email:", lemail.value);
-console.log("Password:", lpassword.value);
-
+registerForm?.addEventListener('submit', signup);
