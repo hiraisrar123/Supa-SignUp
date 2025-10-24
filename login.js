@@ -27,4 +27,25 @@ async function login(e) {
   window.location.href = 'home.html';
 }
 
+
 loginForm?.addEventListener('submit', login);
+
+
+
+// ___________________________________________ LOGOUT 
+let logoutBtn = document.getElementById('logout');
+
+
+async function logout () {
+  const { error } = await supabase.auth.signOut();
+  if(!error){
+   alert('Logout successful');
+   window.location.href = 'login.html';
+  } else {
+    console.error('Logout error:', error.message);
+  }
+}
+
+
+logoutBtn?.addEventListener('click', logout);
+
